@@ -1,0 +1,100 @@
+Parks: 870 unique locations, 866 inside a ward; 164 of 198 wards have at least one park
+Wards with heat values: 198 of 198
+
+Median split points: vulnerability 0.50, parks per km2 1.54
+
+Four groups (main version):
+                      wards  people_2011  area_km2  parks  mean_lst  people_per_km2  parks_per_km2  people_per_park  share_of_people_pct  share_of_parks_pct
+group                                                                                                                                                       
+Priority gap             50      2290495     127.0     54      36.4         18039.1            0.4          42416.6                 27.1                 6.2
+Well-targeted            49      1796495      50.0    204      35.8         35902.8            4.1           8806.3                 21.3                23.6
+Possibly inefficient     50      1925021     121.1    449      35.0         15902.7            3.7           4287.4                 22.8                51.8
+Low priority             49      2431664     412.2    159      35.5          5899.0            0.4          15293.5                 28.8                18.4
+
+Chi-square and Spearman, main version and checks:
+                             version  Priority gap  Well-targeted  Possibly inefficient  Low priority   chi2  chi2_p  spearman  spearman_p
+ Main: heat + density, parks per km2            50             49                    50            49  0.000     1.0    -0.134        0.06
+            Heat only, parks per km2            65             34                    65            34 18.182     0.0    -0.480        0.00
+         Density only, parks per km2            35             64                    35            64 15.838     0.0     0.274        0.00
+Heat + density, parks per 10k people            66             33                    66            33 20.687     0.0    -0.473        0.00
+
+Ward area vs population density: Spearman -0.96 (density is mostly ward size, so ratio-based checks above are unreliable)
+
+Within wards of similar size, Spearman of park COUNT with population and with heat:
+size_group  wards area_km2  parks_vs_population  p_pop  parks_vs_heat  p_heat
+  Smallest     50  0.3-0.9               -0.285  0.045         -0.600   0.000
+ Small-mid     49  0.9-1.7               -0.180  0.216         -0.659   0.000
+ Mid-large     49  1.7-4.0               -0.336  0.018         -0.457   0.001
+   Largest     50 4.2-28.4                0.228  0.111         -0.336   0.017
+
+Regression log(parks + 1) ~ log(population) + log(area) + heat:
+   log population  +0.113 ± 0.498
+   log area        +0.131 ± 0.130
+   heat (per °C)   -0.523 ± 0.148
+   => each +1 °C of ward heat goes with about 41% fewer parks, for wards of equal population and area
+
+Parks vs satellite green cover: Spearman -0.03
+If every park were 1 ha, parks would cover a median 1.5% of a ward, too little to explain ward-level heat differences
+
+Wards with no park in the 2023 list: 34 (1,525,089 people in 2011, 18%); 24 are in the more vulnerable half. Median density 32,565 vs 22,312; median LST 36.43 vs 35.48 °C
+
+Priority-gap wards (50), most vulnerable first:
+ ward_num                ward_name  population   density   lst  parks  parks_per_km2  vulnerability
+       48         Muneshwara Nagar       35814  74640.60 37.02      0           0.00           0.97
+       31             Kushal Nagar       41936  65165.80 37.10      0           0.00           0.96
+      122       Kempapura Agrahara       40032 113535.27 36.60      0           0.00           0.93
+      116               Nilasandra       48534  91810.91 36.39      0           0.00           0.90
+       33          Manorayanapalya       47926  59219.76 36.47      0           0.00           0.88
+      135           Padarayanapura       37599 118289.94 36.14      0           0.00           0.84
+      139               K R Market       29344  36020.23 36.96      0           0.00           0.84
+      102      Vrisabhavathi Nagar       50893  51274.14 36.34      1           1.01           0.83
+       92            Shivaji Nagar       37506  88075.11 36.11      0           0.00           0.83
+       49            Lingarajapura       37955  43330.07 36.42      1           1.14           0.82
+      171           Gurappanapalya       48991  72085.28 35.99      1           1.47           0.80
+      103               Kaveripura       53532  32413.12 36.88      2           1.21           0.80
+       28             Kammanahalli       47074  45587.67 36.30      0           0.00           0.80
+       69                  Laggere       57077  36405.54 36.48      0           0.00           0.79
+       71             Hegganahalli       66314  34251.63 36.63      0           0.00           0.78
+      109                Chickpete       33292  43393.18 36.24      0           0.00           0.78
+      189              Hongasandra       68554  31867.95 36.74      1           0.46           0.78
+       23                 Nagavara       60483  29253.79 36.98      0           0.00           0.78
+       15            T Dasarahalli       33042  37529.99 36.35      0           0.00           0.78
+       70          Rajagopal Nagar       61479  28448.84 36.92      0           0.00           0.76
+       22   Vishwanath Nagenahalli       51592  34818.00 36.46      0           0.00           0.76
+       77        Dattatreya Temple       33388  47095.72 36.03      1           1.41           0.76
+      134             Bapuji Nagar       49484  72698.04 35.74      1           1.47           0.75
+       95            Subhash Nagar       37693  29364.63 36.51      0           0.00           0.73
+       42       Lakshmi Devi Nagar       41352  27685.97 36.62      1           0.67           0.72
+       51              Vijnanapura       46159  22510.22 36.97      0           0.00           0.71
+       56           A Narayanapura       43443  20310.36 37.15      1           0.47           0.70
+      180 Banashankari Temple ward       42171  61790.98 35.42      0           0.00           0.68
+      190          Mangammanapalya       65890  18626.00 36.93      0           0.00           0.67
+       13              Mallasandra       41482  31582.17 36.16      2           1.52           0.67
+      156                 Srinagar       41379  51561.45 35.41      1           1.25           0.66
+      144                Siddapura       34879  52637.83 35.39      0           0.00           0.66
+      158         Deepanjali Nagar       45928  22024.13 36.38      2           0.96           0.63
+      141               Azad Nagar       38825  57858.10 35.22      1           1.49           0.63
+      146              Lakkasandra       30667  23743.38 36.29      1           0.77           0.63
+       41   Peenya Industrial Area       57814  10339.51 37.38      2           0.36           0.62
+       21                  Hebbala       32516  26497.57 36.13      1           0.81           0.62
+      159                  Kengeri       40771   8336.81 37.18      5           1.02           0.59
+       47      Devara Jeevanahalli       42135  30878.40 35.68      0           0.00           0.59
+       91           Bharathi Nagar       32689  41907.63 35.21      0           0.00           0.57
+       26         Ramamurthy Nagar       47358   6130.55 37.29      1           0.13           0.56
+      185            Yelchenahalli       46943  29305.90 35.56      2           1.25           0.55
+        6              Thanisandra       71855   7120.81 36.90      2           0.20           0.54
+       53             Basavanapura       48585   7559.88 36.67      0           0.00           0.54
+       87              HAL Airport       39926   5865.59 36.93      1           0.15           0.53
+       38                 HMT Ward       36879   7037.74 36.63      7           1.34           0.52
+      196               Anjanapura       45608   3784.62 37.31      4           0.33           0.52
+       55               Devasandra       33946   9826.79 36.37      3           0.87           0.51
+       24               HBR Layout       58967  12729.37 36.22      4           0.86           0.51
+       40        Dodda Bidarakallu       72794   5569.15 36.79      5           0.38           0.50
+
+Parks per ward by ward-temperature quarter:
+                  mean_parks  lst_lo  lst_hi  zero  wards  median_pop
+heat_q                                                               
+Coolest\nquarter        7.24   33.88   35.13     2     50     35504.0
+2nd                     4.57   35.13   35.56     6     49     39768.0
+3rd                     4.16   35.58   36.28     6     49     42135.0
+Hottest\nquarter        1.52   36.29   37.38    20     50     45678.0

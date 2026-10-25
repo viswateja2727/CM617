@@ -1,0 +1,48 @@
+Grid squares: 2866, used after removing water/missing: 2844
+Correlation between green cover and built-up share: -0.66 (they compete for land, so built-up share is only used as a control)
+
+A. Within each built-up group, average LST (°C) from least-green to most-green quarter:
+                squares built_range  LST Least green  LST Q2  LST Q3  LST Most green  LST difference (least - most green)
+built_group                                                                                                              
+Least built-up      711       0-17%             37.3    36.3    35.1            33.5                                  3.9
+Low-mid             711      18-31%             36.9    36.2    35.6            34.5                                  2.5
+Mid-high            711      31-43%             36.7    36.1    35.7            35.0                                  1.7
+Most built-up       711      43-73%             36.4    36.1    35.8            35.2                                  1.1
+
+   Average green cover (%) in those quarters:
+                green Least green  green Q2  green Q3  green Most green
+built_group                                                            
+Least built-up               14.4      35.7      57.5              84.1
+Low-mid                       7.0      18.1      31.6              55.4
+Mid-high                      3.5      11.0      19.5              33.7
+Most built-up                 0.9       4.1       8.6              18.0
+
+   Average built-up (%) in those quarters (should be similar across a row):
+                built Least green  built Q2  built Q3  built Most green
+built_group                                                            
+Least built-up               10.4      10.7       9.4               6.6
+Low-mid                      24.6      24.6      24.6              22.8
+Mid-high                     37.9      37.1      36.8              36.4
+Most built-up                52.7      49.8      49.2              46.0
+
+Regression LST ~ green cover + built-up (all squares):
+   +10% green cover: -0.56 °C (±0.02),  +10% built-up: -0.46 °C (±0.03),  R² = 0.48
+
+Robustness: effect of +10% green cover on LST, holding built-up fixed:
+                          version  °C per +10% green  ± (95%)    n
+               All squares (main)              -0.56     0.02 2844
+2 km blocks (neighbours averaged)              -0.63     0.07  185
+          Squares with < 5% water              -0.59     0.02 2655
+        Least built-up group only              -0.60     0.04  711
+               Low-mid group only              -0.51     0.03  711
+              Mid-high group only              -0.55     0.05  711
+         Most built-up group only              -0.73     0.09  711
+
+Same model with mean NDVI instead of green cover (no 0.4 threshold): +0.1 NDVI = -1.57 °C (±0.06)
+
+B. Hottest quarter of squares (LST >= 36.7 °C), split at the median built-up share (31%):
+                        squares  mean_lst  mean_built_pct  mean_green_pct
+category                                                                 
+Hot, built-up               293      37.2            42.5             7.0
+Hot, open land              418      37.6            15.7            19.9
+Not in hottest quarter     2133      35.2            31.0            28.7

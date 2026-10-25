@@ -1,0 +1,44 @@
+Points: 25146 sampled, 24735 used (land in both periods, no missing values)
+City median LST: 38.4 °C (2000-04) -> 35.9 °C (2022-26); city median NDVI: 0.242 -> 0.289
+Built-up share, median point: 7% -> 32%
+
+Average change by group (temperature changes in °C, relative to city median and to own 1 km neighbourhood):
+                                                              points  d_ndvi  d_built_pct  d_lst_city  d_lst_local
+building                     change                                                                               
+Little new building (<5 pts) Greened (NDVI +0.10 or more)       2909    0.17         0.86       -1.22        -0.89
+                             Lost green (NDVI -0.10 or more)    1444   -0.19         1.00        3.07         1.93
+                             Stable (within ±0.03)              3491   -0.00         0.56        1.10         0.27
+New building (5+ pts)        Greened (NDVI +0.10 or more)       1580    0.16        18.90       -2.33        -1.38
+                             Lost green (NDVI -0.10 or more)    2585   -0.19        27.02        1.23         1.02
+                             Stable (within ±0.03)              2541   -0.00        24.28       -1.33        -0.56
+
+With little new building: greened points changed by -1.16 °C relative to stable points (local measure), -2.32 °C (city measure). n = 2909 greened, 3491 stable.
+
+Regression of temperature change on greenness change and built-up change:
+(per_01_ndvi = °C per +0.1 NDVI; per_10pct_built = °C per +10 percentage points built-up)
+                        version  per_01_ndvi    ci  per_10pct_built    r2     n
+      All points, city-relative       -1.215 0.022           -0.743 0.396 24735
+       All points, local (1 km)       -0.798 0.017           -0.352 0.273 24735
+Little new building only, local       -0.799 0.023           -0.326 0.255 13508
+      Plus starting NDVI, local       -0.668 0.018           -0.328 0.307 24735
+     2 km blocks, city-relative       -2.032 0.223           -1.494 0.717   208
+
+Greened minus stable (°C), little new building, within bands of starting NDVI (2000-04):
+        band  greened  stable  diff_local  diff_city
+(-1.0, 0.15]      155     789       -0.25      -1.73
+ (0.15, 0.2]      462     982       -1.15      -2.45
+ (0.2, 0.25]      609     705       -1.54      -2.83
+ (0.25, 0.3]      608     393       -1.38      -2.75
+  (0.3, 0.4]      742     388       -1.31      -2.07
+  (0.4, 1.0]      333     234       -1.15      -1.24
+
+Greened minus stable (°C), little new building, within bands of starting built-up share (2000):
+         band  greened  stable  diff_local  diff_city
+(-0.01, 0.05]     1855     656       -1.36      -2.05
+ (0.05, 0.15]      346     153       -0.96      -1.01
+  (0.15, 0.3]      308     271       -0.84      -1.12
+   (0.3, 0.5]      315     990       -0.67      -0.82
+  (0.5, 1.01]       85    1421       -0.64      -0.84
+
+Rank check (change in NDVI rank vs change in local LST rank): Spearman -0.35 (p = 0)
+Reference points: same-period comparison across places (RQ1, 500 m squares) -1.57 °C per +0.1 NDVI; Freedom Park before/after -1.32 °C for NDVI +0.138 (about -0.96 °C per +0.1).
